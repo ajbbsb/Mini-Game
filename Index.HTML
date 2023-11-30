@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guessing Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    h1 {
+      color: green;
+    }
+    p {
+      font-size: 20px;
+    }
+    input {
+      width: 50px;
+    }
+    button {
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Guessing Game</h1>
+  <p>I'm thinking of a number between 1 and 10.</p>
+  <p>Can you guess it?</p>
+  <input id="guess" type="number" min="1" max="10">
+  <button id="check">Check</button>
+  <p id="message"></p>
+  <p id="attempts"></p>
+  <script>
+    // generate a random number between 1 and 10
+    var number = Math.floor(Math.random() * 10) + 1;
+    // get the input element
+    var guess = document.getElementById("guess");
+    // get the check button
+    var check = document.getElementById("check");
+    // get the message element
+    var message = document.getElementById("message");
+    // get the attempts element
+    var attempts = document.getElementById("attempts");
+    // initialize the number of attempts
+    var count = 0;
+    // add a click event listener to the check button
+    check.addEventListener("click", function() {
+      // get the user's guess
+      var userGuess = parseInt(guess.value);
+      // validate the user's guess
+      if (userGuess >= 1 && userGuess <= 10) {
+        // increment the number of attempts
+        count++;
+        // update the attempts element
+        attempts.textContent = "Number of attempts: " + count;
+        // compare the user's guess with the number
+        if (userGuess === number) {
+          // the user guessed correctly
+          message.textContent = "You got it! The number was " + number + ".";
+          message.style.color = "green";
+          // disable the input and the button
+          guess.disabled = true;
+          check.disabled = true;
+        } else if (userGuess > number) {
+          // the user guessed too high
+          message.textContent = "Too high. Try again.";
+          message.style.color = "red";
+        } else {
+          // the user guessed too low
+          message.textContent = "Too low. Try again.";
+          message.style.color = "red";
+        }
+      } else {
+        // the user entered an invalid guess
+        message.textContent = "Please enter a number between 1 and 10.";
+        message.style.color = "orange";
+      }
+    });
+  </script>
+</body>
+</html>
